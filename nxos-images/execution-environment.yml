@@ -18,7 +18,7 @@ additional_build_steps:
     - RUN whoami
     - RUN cat /etc/os-release
     - RUN echo "Installing pip and other build essentials"
-    - RUN dnf install -y python3-pip && dnf clean all
+    - RUN microdnf install -y python3-pip && microdnf clean all
     - RUN echo "Building Cisco NX-OS Execution Environment"
   
   append_final:
