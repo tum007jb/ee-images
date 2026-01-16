@@ -11,7 +11,7 @@ dependencies:
   ansible_core:
     package_pip: ansible-core==2.15.13 # ระบุเวอร์ชันที่แน่นอน
   ansible_runner:
-    package_pip: ansible-runner==2.3.6
+    package_pip: ansible-runner
   galaxy: requirements.yml          # Ansible Collections
   python: requirements.txt          # Python packages
   system: bindep.txt               # System packages (optional)
