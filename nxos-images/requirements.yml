@@ -1,0 +1,20 @@
+---
+collections:
+  # Cisco NX-OS Collection - หลัก
+  - name: cisco.nxos
+    version: ">=8.0.0"
+
+  # Collections ที่เกี่ยวข้อง
+  - name: ansible.netcommon
+    version: ">=6.0.0"
+
+  - name: ansible.utils
+    version: ">=4.0.0"
+
+  # Collections เพิ่มเติมที่มักใช้ร่วมกัน
+  - name: community.general
+    version: ">=8.0.0"
+
+  # ถ้าใช้ Ansible Vault
+  - name: community.crypto
+    version: ">=2.0.0"

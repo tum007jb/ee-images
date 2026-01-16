@@ -1,0 +1,13 @@
+# System-level dependencies
+# สำหรับ RHEL/CentOS
+
+python3-devel [platform:rpm]
+gcc [platform:rpm]
+libxml2-devel [platform:rpm]
+libxslt-devel [platform:rpm]
+openssh-clients [platform:rpm]
+
+# สำหรับ Debian/Ubuntu
+# python3-dev [platform:dpkg]
+# gcc [platform:dpkg]
+# libxml2-dev [platform:dpkg]

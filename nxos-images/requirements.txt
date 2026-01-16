@@ -1,0 +1,20 @@
+# Python libraries สำหรับ Cisco NX-OS
+
+# Core networking libraries
+netaddr>=0.8.0
+jinja2>=3.1.0
+paramiko>=3.0.0
+ncclient>=0.6.13
+
+# Cisco-specific libraries
+# (nxos ใช้ paramiko และ ncclient เป็นหลัก)
+
+# Utilities
+PyYAML>=6.0
+xmltodict>=0.13.0
+
+# ถ้าใช้ NAPALM (optional)
+# napalm>=4.0.0
+
+# ถ้าใช้ Ansible Vault
+cryptography>=41.0.0
