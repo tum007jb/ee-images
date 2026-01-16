@@ -15,6 +15,10 @@ dependencies:
 # Additional build steps (ถ้าต้องการ)
 additional_build_steps:
   prepend_base:
+    - RUN whoami
+    - RUN cat /etc/os-release
+    - RUN echo "Installing pip and other build essentials"
+    - RUN dnf install -y python3-pip && dnf clean all
     - RUN echo "Building Cisco NX-OS Execution Environment"
   
   append_final:
