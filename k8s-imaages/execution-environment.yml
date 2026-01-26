@@ -1,15 +1,13 @@
 ---
 version: 3
 
-# เลือก Base Image
 images:
   base_image:
     name: registry.redhat.io/ansible-automation-platform-25/ee-minimal-rhel9:latest
 
-# Dependencies
 dependencies:
   ansible_core:
-    package_pip: ansible-core==2.15.13 # ระบุเวอร์ชันที่แน่นอน
+    package_pip: ansible-core==2.15.13
   ansible_runner:
     package_pip: ansible-runner
   galaxy: 
@@ -23,9 +21,8 @@ dependencies:
   system:
     - tar
     - gzip
-    - util-linux              # System packages (optional)
+    - util-linux
 
-# Additional build steps (ถ้าต้องการ)
 additional_build_steps:
   prepend_base:
     - RUN microdnf install -y python3-pip tar gzip && microdnf clean all
@@ -34,9 +31,9 @@ additional_build_steps:
     - |
       RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz | tar -xvzf - -C /usr/local/bin/ oc && \
       chmod +x /usr/local/bin/oc
-    - RUN echo "Build completed: oc binary and kubernetes dependencies installed"
+    # แก้ไขตรงนี้: ใส่เครื่องหมายคำพูดครอบบรรทัดที่มีเครื่องหมายโคลอน
+    - 'RUN echo "Build completed: oc binary and kubernetes dependencies installed"'
     - RUN ansible-galaxy collection list
 
-# Build arguments
 build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '--ignore-certs'
