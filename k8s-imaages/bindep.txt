@@ -1,0 +1,3 @@
+tar [platform:rpm]
+gzip [platform:rpm]
+util-linux [platform:rpm]

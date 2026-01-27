@@ -10,28 +10,20 @@ dependencies:
     package_pip: ansible-core==2.15.13
   ansible_runner:
     package_pip: ansible-runner
-  galaxy: 
-    collections:
-      - kubernetes.core
-      - ansible.utils
-  python:
-    - kubernetes
-    - pyyaml
-    - jsonpatch
-  system:
-    - tar
-    - gzip
-    - util-linux
-    # --- เอา openshift-clients ออกจากตรงนี้ ---
+  galaxy: requirements.yml
+  python: requirements.txt
+  system: bindep.txt
 
 additional_build_steps:
   prepend_base:
     - RUN microdnf install -y python3-pip tar gzip && microdnf clean all
   
   append_final:
-    # ดาวน์โหลดและติดตั้ง oc binary โดยตรงจาก Mirror ของ OpenShift
     - |
-      RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz | tar -xvzf - -C /usr/local/bin/ oc && \
-      chmod +x /usr/local/bin/oc
-    - 'RUN echo "Build completed: oc binary installed via curl"'
+      RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz | tar -xvzf - -C /usr/local/bin/ oc kubectl && \
+      chmod +x /usr/local/bin/oc /usr/local/bin/kubectl
+    - 'RUN echo "Build completed: oc and kubectl installed manually"'
     - RUN ansible-galaxy collection list
+
+build_arg_defaults:
+  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '--ignore-certs'
