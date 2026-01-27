@@ -22,18 +22,16 @@ dependencies:
     - tar
     - gzip
     - util-linux
+    # --- เอา openshift-clients ออกจากตรงนี้ ---
 
 additional_build_steps:
   prepend_base:
     - RUN microdnf install -y python3-pip tar gzip && microdnf clean all
   
   append_final:
+    # ดาวน์โหลดและติดตั้ง oc binary โดยตรงจาก Mirror ของ OpenShift
     - |
       RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz | tar -xvzf - -C /usr/local/bin/ oc && \
       chmod +x /usr/local/bin/oc
-    # แก้ไขตรงนี้: ใส่เครื่องหมายคำพูดครอบบรรทัดที่มีเครื่องหมายโคลอน
-    - 'RUN echo "Build completed: oc binary and kubernetes dependencies installed"'
+    - 'RUN echo "Build completed: oc binary installed via curl"'
     - RUN ansible-galaxy collection list
-
-build_arg_defaults:
-  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '--ignore-certs'
