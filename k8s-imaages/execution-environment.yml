@@ -16,7 +16,7 @@ dependencies:
 
 additional_build_steps:
   prepend_base:
-    - RUN dnf install -y python3-pip tar gzip && microdnf clean all
+    - RUN microdnf install -y python3-pip tar gzip && microdnf clean all
   
   append_final:
     - |
