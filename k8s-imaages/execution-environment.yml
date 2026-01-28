@@ -3,7 +3,7 @@ version: 3
 
 images:
   base_image:
-    name: registry.redhat.io/ansible-automation-platform-25/ee-minimal-rhel8:latest
+    name: registry.redhat.io/ansible-automation-platform-25/ee-minimal-rhel9:latest
 
 dependencies:
   ansible_core:
@@ -12,17 +12,19 @@ dependencies:
     package_pip: ansible-runner
   galaxy: requirements.yml
   python: requirements.txt
-  system: bindep.txt
+  system: bindep.txt  # มั่นใจว่าในไฟล์นี้ไม่มี openshift-clients
 
 additional_build_steps:
   prepend_base:
     - RUN microdnf install -y python3.11-pip tar gzip gcc python3.11-devel systemd-devel libxml2-devel && microdnf clean all
-    
+  
   append_final:
-    - |
-      RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz | tar -xvzf - -C /usr/local/bin/ oc kubectl && \
-      chmod +x /usr/local/bin/oc /usr/local/bin/kubectl
-    - 'RUN echo "Build completed: oc and kubectl installed manually"'
+    # 1. COPY ไฟล์ oc และ kubectl จากเครื่อง Bastion เข้าไปในเครื่อง EE
+    - COPY oc /usr/local/bin/oc
+    - COPY kubectl /usr/local/bin/kubectl
+    # 2. ตั้งค่าสิทธิ์ให้รันได้
+    - RUN chmod +x /usr/local/bin/oc /usr/local/bin/kubectl
+    - 'RUN echo "Build completed: oc and kubectl installed from local path"'
     - RUN ansible-galaxy collection list
 
 build_arg_defaults:
