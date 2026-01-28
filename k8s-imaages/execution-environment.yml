@@ -21,7 +21,7 @@ options:
 additional_build_steps:
   prepend_base:
     # เพิ่ม python3.11-pip และตัวคอมไพล์เพื่อให้ผ่าน Error ก่อนหน้านี้
-    - RUN microdnf install -y python3.11-pip tar gzip gcc python3.11-devel systemd-devel libxml2-devel && microdnf clean all
+    - RUN microdnf install -y python3-pip python3.11-pip tar gzip gcc python3.11-devel systemd-devel libxml2-devel && microdnf clean all
   
   append_final:
     # COPY ไฟล์จาก Path ที่คุณเตรียมไว้ (/root/ee-images/k8s-imaages/)
