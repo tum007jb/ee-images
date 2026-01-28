@@ -25,8 +25,8 @@ additional_build_steps:
   
   append_final:
     # COPY ไฟล์จาก Path ที่คุณเตรียมไว้ (/root/ee-images/k8s-imaages/)
-    - COPY /root/ee-images/k8s-imaages/oc /usr/local/bin/oc
-    - COPY /root/ee-images/k8s-imaages/kubectl /usr/local/bin/kubectl
+    - COPY oc /usr/local/bin/oc
+    - COPY kubectl /usr/local/bin/kubectl
     - RUN chmod +x /usr/local/bin/oc /usr/local/bin/kubectl
     - 'RUN echo "Build completed: oc and kubectl installed from local path"'
     - RUN ansible-galaxy collection list
